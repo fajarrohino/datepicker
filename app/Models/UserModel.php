@@ -13,4 +13,14 @@ class UserModel extends Model {
    public function getUsers(){
       return $this->findAll();
    }
+
+   // public function getDate(){
+   public function getDate($startDate, $endDate){
+
+      $query = $this->WHERE('date >=', $startDate)
+         ->WHERE('date <=', $endDate)
+         ->findAll();
+
+      return $query;
+   }
 }

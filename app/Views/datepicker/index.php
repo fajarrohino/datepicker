@@ -8,7 +8,7 @@
    <div class="date">
       <div class="form-group">
          <div class="input-group date">
-            <input placeholder="Start Date" type="text" id="start_date" class="form-control datepicker" name="tgl_awal">
+            <input placeholder="Start Date" type="text" id="start_date" class="form-control datepicker" name="start-date">
             <div class="input-group-addon">
                <span class="glyphicon glyphicon-th"></span>
             </div>
@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
          <div class="input-group date">
-            <input placeholder="End Date" type="text" id="end_date" class="form-control datepicker" name="tgl_akhir">
+            <input placeholder="End Date" type="text" id="end_date" class="form-control datepicker" name="end-date">
             <div class="input-group-addon">
                <span class="glyphicon glyphicon-th"></span>
             </div>
@@ -47,13 +47,41 @@
 </table>
 </div>
    <script type="text/javascript">
+      alert('test')
 
       $(function(){
       $(".datepicker").datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true,
-      });
+         });
+
+         $(".datepicker").change(function () {
+         filterDate();});
+
+         function filterDate(){
+            let startDate = $("#start_date").val();
+            let endDate = $("#end_date").val();
+
+            console.log("start date:", startDate);
+            console.log("end date:", endDate);
+
+            $.ajax({
+               url: baseUrl + "filter-data",
+               method: "POST",
+               data: {
+                  'start-date': startDate,
+                  'end-date': endDate
+               },
+               dataType: 'html',
+               success: function(response){
+                   $("#user-table-body").html(response);
+               },
+               error: function (xhr, status, error) {
+               console.error('AJAX Error: ' + status, error);
+            }
+            })
+         }
       });
 
    </script>
