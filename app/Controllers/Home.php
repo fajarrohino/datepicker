@@ -2,16 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+use CodeIgniter\Controller;
+
 class Home extends BaseController
 {
-    //  public function __construct() {
-    //     parent::__construct();
-    //     // Load the URL helper
-    //     $this->load->helper('url');
-    // }
     public function index(): string
     {
-        helper('url');
-        return view('datepicker/index');
+        // helper('url');
+        $userModel = new UserModel;
+        $data['user'] = $userModel->getUsers();
+
+
+        return view('datepicker/index', $data);
     }
 }
