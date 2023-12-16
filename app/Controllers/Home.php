@@ -13,16 +13,16 @@ class Home extends BaseController
         $endDate = $this->request->getPost('end_date');
 
         if (!$startDate && !$endDate) {
-            $startDate = '2023-12-08';
-            $endDate = '2023-12-12';
+            $startDate = '2023-12-01';
+            $endDate = '2023-12-31';
         }
 
         $userModel = new UserModel;
-        // $data['user'] = $userModel->getUsers();
 
-        // $data['user'] = $userModel->getDate();
         $data['user'] = $userModel->getDate($startDate, $endDate);
+
 
         return view('datepicker/index', $data);
     }
+
 }
